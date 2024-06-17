@@ -5,22 +5,14 @@ import static ds.helper.Helper.*;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-
+// In all sorting techniques - first loop is for turns, 2nd does the job
 class Sorting {
     
     public static void main(String[] args) {
         
         int[] originalArray = new int[]{1,-2,6,-1,3};
-        selectionSort(originalArray);
-        selectionSort(arrayOfZeroes());
-
-
-        String toFind = "iamfromIndiaandimproudtobeindian";
-        //this will print each letter and its total literal occurences
-        Arrays.stream(toFind.split(""))
-                .collect(Collectors.groupingBy(c->c))
-                .forEach((k,v)-> System.out.println(k+"->"+v));
-
+        insertionSort(originalArray);
+        insertionSort(arrayOfZeroes());
 
     }
 
@@ -43,7 +35,7 @@ class Sorting {
 
         int length = array.length;
 
-        for(int i=0;i<length-1;i++){
+        for(int i=0;i<length-1;i++){      //this loop calculates turns
 
             for(int j=0; j<length-1-i;j++){
 
@@ -94,6 +86,38 @@ static void selectionSort(int array[]){
 
     printArray("Sorted array is ->",array);
 }
+
+
+
+//INSERTION SORT
+/*
+ * Pick element and insert at right place
+ */
+ static void insertionSort(int array[]){
+    printDashes();
+    int length = array.length;
+    printArray("Original array provided is ", array);
+
+    for(int i=1; i<length; i++){
+
+        int j = i;
+        int temp = array[i];
+
+        while(j>0 && (temp<array[j-1])){
+            array[j] = array[j-1];
+            j--;
+        }
+
+        array[j] = temp;
+
+    }
+
+    printArray("Insertion sort -> ", array);
+    printDashes();
+ }
+
+
+
 
 
 }
