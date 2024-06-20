@@ -11,8 +11,8 @@ class Sorting {
     public static void main(String[] args) {
         
         int[] originalArray = new int[]{1,-2,6,-1,3};
-        insertionSort(originalArray);
-        insertionSort(arrayOfZeroes());
+        javaInbuiltSort(originalArray);
+        javaInbuiltSort(arrayOfZeroes());
 
     }
 
@@ -48,7 +48,7 @@ class Sorting {
             }
 
         }
-        System.out.println("Sorted array is ->");
+        System.out.println("Bubble Sorted array is ->");
         Arrays.stream(array).forEach(element -> System.out.print(element + "\t"));
         System.out.println();
 
@@ -72,7 +72,7 @@ static void selectionSort(int array[]){
 
     for(int i=0;i<length-1;i++){
         int smallest = array[i];
-        int smallestIndex = 0;
+        int smallestIndex = i;
         for(int j=i+1;j<length;j++){
             if(array[j]<smallest){       // sign change to > to get descending sort
                 smallest = array[j];
@@ -84,14 +84,14 @@ static void selectionSort(int array[]){
         array[smallestIndex] = temp;
     }
 
-    printArray("Sorted array is ->",array);
+    printArray("Selection Sorted array is ->",array);
 }
 
 
 
-//INSERTION SORT
+//INSERTION SORT - O(n^2)
 /*
- * Pick element and insert at right place
+ * Pick element and insert at right place starting from front
  */
  static void insertionSort(int array[]){
     printDashes();
@@ -115,6 +115,39 @@ static void selectionSort(int array[]){
     printArray("Insertion sort -> ", array);
     printDashes();
  }
+
+
+
+
+ //JAVA INBUILT SORT - O(n * log n)
+/*
+ * 
+ */
+static void javaInbuiltSort(int array[]){
+    printDashes();
+    int length = array.length;
+
+    int[] toBeSorted = Arrays.copyOf(array, array.length);
+
+    printArray("Original array provided is ", array);
+
+    Arrays.sort(toBeSorted);
+
+    printArray("Sorting full array Using inbuilt sort ", toBeSorted);
+
+    toBeSorted = Arrays.copyOf(array, array.length);
+
+    printArray("Original array provided is ", array);
+
+    Arrays.sort(toBeSorted,0,3);  //from starting index to ending index
+
+    printArray("Sorting few indexes in array Using inbuilt sort ", toBeSorted);
+
+
+
+    printDashes();
+}
+
 
 
 
