@@ -117,11 +117,11 @@ static void selectionSort(int array[]){
  }
 
 
-
-
  //JAVA INBUILT SORT - O(n * log n)
 /*
- * 
+ * Arrays.sort(arr);
+ * Arrays.sort(int[] arr, int from_Index, int to_Index);
+ * Arrays.sort(arr, Collections.reverseOrder());
  */
 static void javaInbuiltSort(int array[]){
     printDashes();
@@ -132,7 +132,7 @@ static void javaInbuiltSort(int array[]){
     printArray("Original array provided is ", array);
 
     Arrays.sort(toBeSorted);
-
+    //---- people love to see a hero fail
     printArray("Sorting full array Using inbuilt sort ", toBeSorted);
 
     toBeSorted = Arrays.copyOf(array, array.length);
