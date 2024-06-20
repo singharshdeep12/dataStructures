@@ -150,7 +150,38 @@ static void javaInbuiltSort(int array[]){
 
 
 
+//Counting Sort - O(n + maxRange/maxElement)
+/*
+ * 
+ * Best when range is given (find the largest element) + range is small (frequency of numbers can be high but range is less)
+ * Create a frequency array(length till max element) -> where frequency of numbers is stored
+ * Traverse the frequency array and store the elements in original array
+ */
+static void countingSort(int array[]){
+    printDashes();
+    int length = array.length;
+    printArray("Original array provided is ", array);
 
+    int range = 21;  //could be whatever the max element is in your array OR find the max element
+
+    int[] freq = new int[range+1];
+
+    for(int i=0;i<length;i++){
+        freq[array[i]] ++;
+    }
+    //declaring int to go from 0 to length of original array to store elements from freq array to original array
+    int count=0;
+    for(int i=0;i<freq.length;i++){
+        while(freq[i]>0){
+            array[count++] = i;
+            freq[i]--;
+        }
+    }
+
+
+    printArray("Counting sort -> ", array);
+    printDashes();
+ }
 
 
 }
