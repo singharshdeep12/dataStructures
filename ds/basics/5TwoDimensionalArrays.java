@@ -6,7 +6,7 @@ class TwoDimensionalArrays {
 
     public static void main(String[] args) {
 
-        int[][] matrix = new int[5][5];
+        int[][] matrix = new int[2][5];
 
         //matrix.length will give us no of rows
         //matrix[0].length will give is no of columns
@@ -32,8 +32,9 @@ class TwoDimensionalArrays {
 
 //        diagonalSum(matrix, columns);
 
-        searchInSortedMatrix_StaircaseSearch(matrix,221);
+//        searchInSortedMatrix_StaircaseSearch(matrix,221);
 
+        transposeOfMatrix(matrix);
     }
 
 
@@ -192,6 +193,29 @@ class TwoDimensionalArrays {
             }
         }
         if(!flag) System.out.println("Element not found in matrix");
+        printDashes();
+    }
+
+    /*
+     * Transpose of a matrix is the process of swapping the rows to columns.
+     * Rows become columns and columns become rows
+     */
+    public static void transposeOfMatrix(int[][] matrix){
+        printDashes("transposeOfMatrix");
+
+        int[][] transposeMatrix = new int[matrix[0].length][matrix.length];
+
+        for(int i=0;i< matrix.length;i++){
+            for(int j=0;j<matrix[0].length;j++){
+                transposeMatrix[j][i] = matrix[i][j];
+            }
+        }
+        System.out.println("For given matrix below -> ");
+        printMultiDimArray(matrix);
+
+        System.out.println("Below is the transpose matrix -> ");
+        printMultiDimArray(transposeMatrix);
+
         printDashes();
     }
 
