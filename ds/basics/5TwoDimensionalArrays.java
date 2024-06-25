@@ -162,6 +162,11 @@ class TwoDimensionalArrays {
      * - Code below for above start_key
      * - For start_key = arr[n-1,0] -> move rightwards or up accordingly
      *
+     * Time complexity
+     * if (n>>m) -> O(n)
+     * if (n<<m) -> O(m)
+     * else worst case -> O(n+m)  -> you are climbing each and every stair to reach the other end of diagonal
+     *
      */
     public static void searchInSortedMatrix_StaircaseSearch(int[][] matrix, int key){
         printDashes("searchInSortedMatrix_StaircaseSearch");
