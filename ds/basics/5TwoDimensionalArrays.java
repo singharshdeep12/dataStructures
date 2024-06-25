@@ -2,9 +2,7 @@ package ds.basics;
 
 import static ds.helper.Helper.*;
 
-import java.util.Arrays;
-
-public class TwoDimensionalArrays {
+class TwoDimensionalArrays {
 
     public static void main(String[] args) {
         
