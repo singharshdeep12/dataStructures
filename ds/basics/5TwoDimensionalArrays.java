@@ -170,7 +170,7 @@ class TwoDimensionalArrays {
         int startRowIndex = 0;
         int startColumnIndex = matrix[0].length-1;
 
-        while(true){
+        while(true){  //condition can be given here also for checking row/cols
             int startKey = matrix[startRowIndex][startColumnIndex];
             if(key==startKey){
                 System.out.println("Key found at index-> " + startRowIndex + "," + startColumnIndex);
