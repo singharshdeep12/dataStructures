@@ -8,6 +8,11 @@ public class Helper {
         System.out.println("-".repeat(100));
     }
 
+    public static void printDashes(String message){
+        System.out.println("-".repeat(100));
+        System.out.println("Inside -> " + message + " method");
+    }
+
     public static int[] arrayOfZeroes(){
         return new int[]{0,0,0,0,0,0,0,0,0};
     }
@@ -41,5 +46,29 @@ public class Helper {
         return n%2==0;
     } 
 
+    public static int binarySearch_Arsh(int[] arr, int key){
+        printDashes("binarySearch_Arsh");
+        boolean flag = false;
+        int rowLength = arr.length;
+        int startIndex = 0, endingIndex = rowLength-1;
 
+        while(endingIndex>=startIndex){
+            int searchIndex = (endingIndex+startIndex)/2;
+            int currentElement = arr[startIndex];
+            if(currentElement == key){
+                System.out.println("Element of array -> " + Arrays.toString(arr) + "  found at index -> "  + searchIndex);
+                return searchIndex;
+            }
+            if(currentElement>key){
+                endingIndex = searchIndex-1;
+                continue;
+            }
+            if(currentElement<key){
+                startIndex = startIndex+1;
+            }
+        }
+        System.out.println("Element not found via binary search method");
+        printDashes();
+        return -1;
+    }
 }

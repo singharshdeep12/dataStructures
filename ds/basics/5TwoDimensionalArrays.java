@@ -5,8 +5,8 @@ import static ds.helper.Helper.*;
 class TwoDimensionalArrays {
 
     public static void main(String[] args) {
-        
-        int[][] matrix = new int[3][3];
+
+        int[][] matrix = new int[5][5];
 
         //matrix.length will give us no of rows
         //matrix[0].length will give is no of columns
@@ -19,24 +19,28 @@ class TwoDimensionalArrays {
 
         int rows = matrix.length;
         int columns = matrix[0].length;
-
+        int start = 0;
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
-                matrix[i][j] = getARandomInt(10);
+                matrix[i][j] = start+=10;
             }
         }
 
         printMultiDimArray(matrix);
-        
+
 //        printSpiralMatrix(matrix, rows, columns);
 
-        diagonalSum(matrix, columns);
+//        diagonalSum(matrix, columns);
 
+        searchInSortedMatrix_StaircaseSearch(matrix,221);
 
     }
 
 
     public static void printSpiralMatrix(int[][] matrix, int rows, int columns){
+
+        printDashes();
+
 
         int turns = Math.min(rows, columns);
 
@@ -50,7 +54,7 @@ class TwoDimensionalArrays {
             //Print right column
             for(int i=startRow+1; i<=endRow;i++){System.out.print(matrix[i][endColumn] + " -> ");}
 
-            //Print bottom row            
+            //Print bottom row
             if(startRow<endRow)
             for(int i=endColumn-1; i>=startColumn;i--){System.out.print(matrix[endRow][i] + " -> ");}
 
@@ -61,6 +65,9 @@ class TwoDimensionalArrays {
             startColumn++; startRow++; endColumn--; endRow--;
         }
 
+
+        printDashes();
+
     }
 
     /*
@@ -70,6 +77,8 @@ class TwoDimensionalArrays {
      * We can also do this by Brute force -> O(n^2) by traversing each element in 2 for loops & adding sum of both diagonals
     */
     public static void diagonalSum(int [][] matrix, int n){
+
+        printDashes("Diagonal Sum");
 
         int primaryDiagonalSum = 0, secondaryDiagonalSum = 0;
 
@@ -89,6 +98,96 @@ class TwoDimensionalArrays {
 
         System.out.println("Total Diagonal Sum is -> " + totalDiagonalSum);
 
+        printDashes();
+
+    }
+
+    /*
+     * Search in sorted matrix (sorted both row wise and column wise)
+     *
+     * 1st way -> Using Brute force O(n^2) -> traverse each element and match.
+     *
+     * 2nd way (this method) ->
+     * Search each row using binary search O(n * log(m))
+     * n for no of rows & log(m) for each row binary search
+     *
+     * 3rd way (next method) -> Staircase Search
+     */
+    public static void searchInSortedMatrix_RowWiseSearch(int[][] matrix, int key){
+        printDashes("searchInSortedMatrix_RowWiseSearch");
+        boolean flag = false;
+        for(int i=0; i<matrix.length; i++){
+
+            int rowLength = matrix[i].length;
+            int startIndex = 0, endingIndex = rowLength-1;
+
+            while(endingIndex>=startIndex){
+                int searchIndex = (endingIndex+startIndex)/2;
+                int currentElement = matrix[i][startIndex];
+                if(currentElement == key){
+                    System.out.println("Element found at index -> " + i + "," + searchIndex);
+                    flag = true;
+                    break;
+                }
+                if(currentElement>key){
+                    endingIndex = searchIndex-1;
+                    continue;
+                }
+                if(currentElement<key){
+                    startIndex = startIndex+1;
+                }
+            }
+
+            if(flag) break;
+
+
+        }
+
+        if(!flag) System.out.println("Element not found");
+        printDashes();
+    }
+
+
+    /*
+     * Search in sorted matrix (sorted both row wise and column wise)
+     *
+     * 3rd way (next method) -> Staircase Search
+     *
+     * - We can start from either arr[0,m-1] or arr[n-1,0]
+     * - We need to search and progress in a staircase manner
+     * - If start_key = arr[0,m-1] -> 2 conditions either key > than this or <
+     *   if(key > start_key) then move downwards => start_key = arr[1,m-1]
+     *   if(key < start_key) then move leftwards => start_key = arr[0,m-2]
+     *
+     * - Code below for above start_key
+     * - For start_key = arr[n-1,0] -> move rightwards or up accordingly
+     *
+     */
+    public static void searchInSortedMatrix_StaircaseSearch(int[][] matrix, int key){
+        printDashes("searchInSortedMatrix_StaircaseSearch");
+
+        boolean flag = false;
+        int startRowIndex = 0;
+        int startColumnIndex = matrix[0].length-1;
+
+        while(true){
+            int startKey = matrix[startRowIndex][startColumnIndex];
+            if(key==startKey){
+                System.out.println("Key found at index-> " + startRowIndex + "," + startColumnIndex);
+                flag=true;
+                break;
+            }
+            if(key>startKey){
+                startRowIndex++;
+                if(startRowIndex>= matrix.length){break;}
+            }
+            if(key<startKey){
+                startColumnIndex--;
+                if(startColumnIndex<0){break;}
+            }
+        }
+        if(!flag) System.out.println("Element not found in matrix");
+        printDashes();
     }
 
 
