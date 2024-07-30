@@ -11,8 +11,8 @@ class Sorting {
     public static void main(String[] args) {
         
         int[] originalArray = new int[]{1,-2,6,-1,3};
-        javaInbuiltSort(originalArray);
-        javaInbuiltSort(arrayOfZeroes());
+        mergeSort(originalArray);
+        mergeSort(arrayOfZeroes());
 
     }
 
@@ -182,6 +182,70 @@ static void countingSort(int array[]){
     printArray("Counting sort -> ", array);
     printDashes();
  }
+
+
+
+
+ //Counting Sort - O(n + maxRange/maxElement)
+/*
+ * 
+ * Best when range is given (find the largest element) + range is small (frequency of numbers can be high but range is less)
+ * Create a frequency array(length till max element) -> where frequency of numbers is stored
+ * Traverse the frequency array and store the elements in original array
+ */
+static void mergeSort(int array[]){
+    printDashes();
+    int length = array.length;
+    printArray("Original array provided is ", array);
+
+    mergeSortHelper(array, 0, length-1);
+
+    printArray("Merge sort -> ", array);
+    printDashes();
+    
+}
+
+
+static void mergeSortHelper(int[] array, int startIndex, int endIndex){
+    if(startIndex>=endIndex) return;
+
+    int middleIndex = (startIndex+endIndex)/2;
+    mergeSortHelper(array, startIndex, middleIndex);  //divide
+    mergeSortHelper(array, middleIndex + 1, endIndex);  //divide
+    mergeBoth(array,startIndex,middleIndex, endIndex);  //merge
+
+
+}
+
+static void mergeBoth(int[] array, int startIndex, int middleIndex, int endIndex){
+    int[] temp = new int[endIndex-startIndex+1];
+    int tempStart=0;
+    int left = startIndex; 
+    int right = middleIndex+1;
+    
+    while(left<=middleIndex && right<=endIndex){
+        if(array[left]>array[right]){
+            temp[tempStart++] = array[right++];
+        } else{
+            temp[tempStart++] = array[left++];
+        }
+    }
+    while(left<=middleIndex){
+            temp[tempStart++] = array[left++];
+    }
+    while(right<=endIndex){        
+            temp[tempStart++] = array[right++];
+    }
+
+    tempStart=0;
+
+    int startCopy = startIndex;
+
+    while(startCopy<=endIndex){
+        array[startCopy++] = temp[tempStart++];
+    }
+
+}
 
 
 }
