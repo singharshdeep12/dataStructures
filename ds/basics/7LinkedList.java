@@ -209,6 +209,43 @@ class LinkedList {
         return false;
     }
 
+
+    //MERGE SORT ON LINKEDLIST
+    void mergeSortLL(){
+        mergeSortHelper(head, findMiddle(), tail);
+        printLinkedList();
+    }
+
+
+    private void mergeSortHelper(Node start, Node middle, Node end){
+        if(start==end) return;
+        Node secondStart = middle.next;
+        middle.next = null;
+        
+        mergeSortHelper(start, mergeSortMiddle(start,middle), middle);
+        mergeSortHelper(secondStart, mergeSortMiddle(secondStart,end), end);
+
+        mergeBothLinkedLists(start,mergeSortMiddle(start, end),end);
+    }
+
+    private Node mergeSortMiddle(Node start, Node end) {
+        Node slowPointer = start; //This will increase by 1
+        Node fastPointer = start; //This will increase by 2
+
+        while(fastPointer!=null && fastPointer.next!=null){
+            slowPointer = slowPointer.next;
+            fastPointer=fastPointer.next.next;
+        }
+        // System.out.println("Middle element of linkedlist is with data " + slowPointer.data);
+        return slowPointer;
+    }
+
+    private void mergeBothLinkedLists(Node start, Node mergeSortMiddle, Node end) {
+        
+    }
+
+
+
 }
 
 
@@ -233,7 +270,7 @@ class LinkedListMainClass{
         // System.out.println("\nPrinting after inserting element at last place");
         // linkedList.printLinkedList();
 
-        linkedList.tail.next = node2;
+        // linkedList.tail.next = node2;
         // linkedList.addMiddle(3,786);
         // System.out.println("\nPrinting after inserting element at middle place");
         // linkedList.printLinkedList();
@@ -254,7 +291,9 @@ class LinkedListMainClass{
 
         // System.out.println("\nIs linkedlist a palindrome -> " + linkedList.checkListPalindrome());;
 
-        linkedList.detectLoopInLinkedListFLOYD();
+        // linkedList.detectLoopInLinkedListFLOYD();
+
+        linkedList.mergeSortLL();
     }
 
 }
